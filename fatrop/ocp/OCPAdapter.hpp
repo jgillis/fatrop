@@ -155,6 +155,10 @@ namespace fatrop
                 ocptempl->get_bounds(lower_p + offs, upper_p + offs, k);
                 offs += ocptempl->get_ng_ineq(k);
             }
+            std::cout << "lower" << std::endl;
+            blasfeo_print_dvec(((VEC *)lower)->m, ((VEC *)lower), 0);
+            std::cout << "upper" << std::endl;
+            blasfeo_print_dvec(((VEC *)upper)->m, ((VEC *)upper), 0);
             return 0;
         };
         fatrop_int get_initial_sol_guess(
@@ -168,6 +172,8 @@ namespace fatrop
                 ocptempl->get_initial_xk(((VEC *)initial)->pa + offs, k);
                 offs += ocptempl->get_nx(k);
             }
+            std::cout << "initial" << std::endl;
+            blasfeo_print_dvec(((VEC *)initial)->m, ((VEC *)initial), 0);
             return 0;
         }
         // virtual fatrop_int GetDefaultParams(

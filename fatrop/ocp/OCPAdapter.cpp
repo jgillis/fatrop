@@ -79,6 +79,7 @@ fatrop_int OCPAdapter::eval_lag_hess(
         obj_scale, primal_data, lam_data, stageparams_p, globalparams_p,
         RSQrqt_p);
     if (full_ret==2) return 0;
+    std::cout << "eval_lag_hess " << std::endl;
     // OCPMACRO(MAT *, BAbt, _p);
     // OCPMACRO(MAT *, Ggt, _p);
     // OCPMACRO(MAT *, Ggt_ineq, _p);
@@ -95,8 +96,9 @@ fatrop_int OCPAdapter::eval_lag_hess(
         fatrop_int offs_g_k = offs_g[k];
         fatrop_int offs_ineq_k = offs_ineq[k];
         fatrop_int offs_stageparams_k = offs_stageparams_p[k];
-        // std::cout << "using exact Hess " << k << std::endl;
 
+        printf("obj_scale %f\n", obj_scale);
+        std::cout << "eval_RSQrqt " << k << std::endl;
         if (full_ret==0)
         {
             ocptempl->eval_RSQrqt(
@@ -112,13 +114,13 @@ fatrop_int OCPAdapter::eval_lag_hess(
                 k);
         }
 
+        std::cout << "k " << k << std::endl;
+        blasfeo_print_dmat(nu_k+nx_k+1, nu_k+nx_k,  RSQrqt_p +k, 0,0);
         if (k > 0)
         {
             fatrop_int offs_dyn_eq_km1 = offs_dyn_eq[k - 1];
             ROWAD(nx_k, -1.0, lam_p, offs_dyn_eq_km1, RSQrqt_p + k, nu_k + nx_k, nu_k);
         }
-        // std::cout << "k " << k << std::endl;
-        // blasfeo_print_dmat(nu_k+nx_k+1, nu_k+nx_k,  RSQrqt_p +k, 0,0);
     }
     return 0;
 }
@@ -149,6 +151,7 @@ fatrop_int OCPAdapter::eval_constr_jac(
         primal_data, stageparams_p, globalparams_p,
         BAbt_p, Ggt_p, Ggt_ineq_p);
     if (full_ret==2) return 0;
+    std::cout << "eval_constr_jac " << std::endl;
 
     if (full_ret==0)
     {
@@ -170,6 +173,8 @@ fatrop_int OCPAdapter::eval_constr_jac(
                 globalparams_p,
                 BAbt_p + k,
                 k);
+            std::cout << "eval_BAbt k " << k << std::endl;
+            blasfeo_print_dmat(BAbt_p[k].m, BAbt_p[k].n,  BAbt_p +k, 0,0);
         }
 #ifdef ENABLE_MULTITHREADING
 #pragma omp parallel for
@@ -189,6 +194,8 @@ fatrop_int OCPAdapter::eval_constr_jac(
                     globalparams_p,
                     Ggt_p + k,
                     k);
+                std::cout << "eval_Ggt k " << k << std::endl;
+                blasfeo_print_dmat(Ggt_p[k].m, Ggt_p[k].n,  Ggt_p +k, 0,0);
             }
         }
     }
@@ -218,6 +225,8 @@ fatrop_int OCPAdapter::eval_constr_jac(
             }
             // rewrite problem
             ROWAD(ng_ineq_k, -1.0, slack_vars_bf, offs_ineq_k, Ggt_ineq_p + k, nu_k + nx_k, 0);
+            std::cout << "eval_Ggt_ineq k " << k << std::endl;
+            blasfeo_print_dmat(Ggt_ineq_p[k].m, Ggt_ineq_p[k].n, Ggt_ineq_p +k, 0,0);
         }
     }
     return 0;
@@ -252,6 +261,7 @@ fatrop_int OCPAdapter::eval_contr_viol(
     if (full_ret==2) return 0;
     if (full_ret==0)
     {
+        std::cout << "eval_contr_viol " << std::endl;
 #ifdef ENABLE_MULTITHREADING
 #pragma omp parallel for
 #endif
@@ -320,10 +330,14 @@ fatrop_int OCPAdapter::eval_contr_viol(
                     cv_p + offs_g_ineq_k,
                     k);
             }
+            std::cout << "eval_gineq k " << k << std::endl;
+            blasfeo_print_dvec(ng_ineq_k, ((VEC *)constraint_violation), offs_g_ineq_k);
             // rewrite problem
             AXPY(ng_ineq_k, -1.0, slack_vars_bf, offs_ineq_k, cv_bf, offs_g_ineq_k, cv_bf, offs_g_ineq_k);
         }
     }
+    std::cout << "constraint_violation" << std::endl;
+    blasfeo_print_dvec(((VEC *)constraint_violation)->m, ((VEC *)constraint_violation), 0);
     return 0;
 }
 fatrop_int OCPAdapter::eval_ineqs(
@@ -398,6 +412,7 @@ fatrop_int OCPAdapter::eval_obj_grad(
         primal_data, stageparams_p, globalparams_p,
         grad_p);
     if (full_ret==2) return 0;
+    std::cout << "eval_obj_grad " << std::endl;
 #ifdef ENABLE_MULTITHREADING
 #pragma omp parallel for
 #endif
@@ -422,6 +437,7 @@ fatrop_int OCPAdapter::eval_obj_grad(
         // VECCP(nu_k + nx_k, gradient_p, offs_ux_k, gradbuf[k], 0);
         // blasfeo_print_dvec(nu_k + nx_k, gradbuf[k], 0);
     }
+    blasfeo_print_dvec(((VEC *)gradient_x)->m, ((VEC *)gradient_x), 0);
     return 0;
 };
 fatrop_int OCPAdapter::eval_obj(
@@ -468,6 +484,7 @@ fatrop_int OCPAdapter::eval_obj(
         res = restot;
     }
 
+    std::cout << res << std::endl;
     return 0;
 };
 
