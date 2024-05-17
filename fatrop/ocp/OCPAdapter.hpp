@@ -55,6 +55,33 @@ namespace fatrop
                                                                                                                                                                { return ocptempl_->get_n_stage_params(k); })),
                                                                                                                    offs_stageparams(offsets(nstageparamsexpr)), stageparams(sum(nstageparamsexpr), 0.0), globalparams(ocptempl_->get_n_global_params(), 0.0), options(options), ocptempl(ocptempl_)
         {
+
+            std::cout << "K: " << K << std::endl;
+            std::cout << "nuexpr: ";
+            for (int i=0;i<nuexpr.size();i++)
+            {
+                std::cout << nuexpr[i] << " ";
+            }
+            std::cout << std::endl;
+            std::cout << "nxexpr: ";
+            for (int i=0;i<nxexpr.size();i++)
+            {
+                std::cout << nxexpr[i] << " ";
+            }
+            std::cout << std::endl;
+            std::cout << "ngexpr: ";
+            for (int i=0;i<ngexpr.size();i++)
+            {
+                std::cout << ngexpr[i] << " ";
+            }
+            std::cout << std::endl;
+            std::cout << "ngineqexpr: ";
+            for (int i=0;i<ngineqexpr.size();i++)
+            {
+                std::cout << ngineqexpr[i] << " ";
+            }
+            std::cout << std::endl;
+
 #ifdef ENABLE_MULTITHREADING
             // check if environment variable OMP_NUM_THREADS is set
             if (getenv("OMP_NUM_THREADS") == NULL)
