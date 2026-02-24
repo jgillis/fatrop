@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; Fatrop Documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Fatrop" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fatrop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-conda-recommended">Using Conda (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-pypi-not-recommended">Using PyPI (Not Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-docker">Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-from-source">Installation from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fatrop">Fatrop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#casadi-optional">CasADi (Optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fatrop_casadi_cookbook.html">Fatrop CasADi Cookbook</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fatrop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>This page will guide you through the process of installing Fatrop.</p>
+<section id="binaries">
+<h2>Binaries<a class="headerlink" href="#binaries" title="Link to this heading"></a></h2>
+<section id="using-conda-recommended">
+<h3>Using Conda (Recommended)<a class="headerlink" href="#using-conda-recommended" title="Link to this heading"></a></h3>
+<p>Fatrop v0 binaries are available on conda.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently, only Fatrop v0 is available on conda. It is recommended to install the newest version from source for the latest improvements.</p>
+</div>
+<p>Fatrop is shipped by default with the conda CasADi package. To install, simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>casadi
+</pre></div>
+</div>
+<p>Alternatively, you can install the <cite>libfatrop</cite> package directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>libfatrop
+</pre></div>
+</div>
+</section>
+<section id="using-pypi-not-recommended">
+<h3>Using PyPI (Not Recommended)<a class="headerlink" href="#using-pypi-not-recommended" title="Link to this heading"></a></h3>
+<p>While it’s possible to install Fatrop v0 via PyPI, this method is not recommended as it currently doesn’t enable CPU-specific optimizations. This means that the performance of the PyPI binaries is significantly lower than the performance of the binaries installed via conda or from source.</p>
+</section>
+</section>
+<section id="using-docker">
+<h2>Using Docker<a class="headerlink" href="#using-docker" title="Link to this heading"></a></h2>
+<p>A Dockerfile is available in the root directory of the repository. It can be built and run using the following commands, which should be sufficient to try out the Python examples:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-fatrop-image<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/workspace<span class="w"> </span>-w<span class="w"> </span>/workspace<span class="w"> </span>my-fatrop-image<span class="w"> </span>bash
+</pre></div>
+</div>
+</section>
+<section id="installation-from-source">
+<h2>Installation from Source<a class="headerlink" href="#installation-from-source" title="Link to this heading"></a></h2>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
+<p>The only dependency of Fatrop is <a class="reference external" href="https://github.com/giaf/blasfeo">Blasfeo</a>, a high-performance library for linear algebra operations.</p>
+<p>To install Blasfeo from source:</p>
+<ol class="arabic">
+<li><p>Clone the Blasfeo repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/giaf/blasfeo.git
+<span class="nb">cd</span><span class="w"> </span>blasfeo
+</pre></div>
+</div>
+</li>
+<li><p>Create a build directory and navigate into it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+</li>
+<li><p>Configure the project with CMake, specifying the installation prefix:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>..<span class="w"> </span>-DTARGET<span class="o">=</span>&lt;blasfeo<span class="w"> </span>target&gt;<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>&lt;/path/to/install/directory&gt;
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">&lt;blasfeo</span> <span class="pre">target&gt;</span></code> should be replaced with the target CPU architecture you want to build for. A list of available targets can be found on the <a class="reference external" href="https://github.com/giaf/blasfeo?tab=readme-ov-file#supported-computer-architectures">BLASFEO GitHub page</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> as the installation directory if you’re using a Conda environment.</p>
+</div>
+</li>
+<li><p>Build the project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install Blasfeo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="fatrop">
+<h3>Fatrop<a class="headerlink" href="#fatrop" title="Link to this heading"></a></h3>
+<p>To install Fatrop from source:</p>
+<ol class="arabic">
+<li><p>Clone the Fatrop repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/meco-group/fatrop.git
+<span class="nb">cd</span><span class="w"> </span>fatrop
+</pre></div>
+</div>
+</li>
+<li><p>Create a build directory and navigate into it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+</li>
+<li><p>Configure the project with CMake, specifying the installation prefix:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>&lt;/path/to/install/directory&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Build the project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install Fatrop:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>This will install Fatrop to the directory specified by <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>.</p>
+<p>To verify that Fatrop has been installed correctly, you can run one of the example programs provided in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> directory.</p>
+</li>
+</ol>
+</section>
+<section id="casadi-optional">
+<h3>CasADi (Optional)<a class="headerlink" href="#casadi-optional" title="Link to this heading"></a></h3>
+<p>While not required for Fatrop itself, CasADi is often used alongside Fatrop for modeling and optimization. To install CasADi from source:</p>
+<ol class="arabic">
+<li><p>Clone the CasADi repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/casadi/casadi.git
+<span class="nb">cd</span><span class="w"> </span>casadi
+</pre></div>
+</div>
+</li>
+<li><p>Create a build directory and navigate into it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+</li>
+<li><p>Configure the project with CMake, specifying the desired options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>..<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_IPOPT<span class="o">=</span>ON<span class="w"> </span>-DWITH_BUILD_IPOPT<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_BUILD_MUMPS<span class="o">=</span>ON<span class="w"> </span>-DWITH_BUILD_METIS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_FATROP<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_PYTHON<span class="o">=</span>ON<span class="w"> </span>-DWITH_PYTHON3<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_PREFIX<span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from distutils.sysconfig import get_python_lib; print(get_python_lib())&#39;</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>&lt;/path/to/install/directory&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+</pre></div>
+</div>
+</li>
+<li><p>Build the project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install CasADi:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Fatrop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Lander Vanroye.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
