@@ -432,6 +432,10 @@ namespace fatrop
             // stream, so concurrent/previous solvers (incl. since-unloaded ones)
             // cannot leave it dangling. Non-owning: the driver owns `stream`.
             if (use_own_stream_) OutputStreamManager::set_stream(&stream);
+            // Print the banner here, not at build time: options (print_level,
+            // suppress_banner) are only applied after create, and it must go to the
+            // stream selected just above. Still at most once per process.
+            if (PrintLevelManager::is_enabled(PrintLevel::Iterations)) Banner::print_once();
             flag = algo->optimize();
             if (flag == IpSolverReturnFlag::Success)
             {

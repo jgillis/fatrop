@@ -279,7 +279,9 @@ namespace fatrop
             options_registry_->register_option<bool>("suppress_banner", &Banner::set_suppress);
         }
 
-        Banner::print_once();
+        // Banner is NOT printed here: build() runs before any option is applied, so
+        // print_level/suppress_banner cannot be honoured yet. Callers print it once
+        // options are live (the C interface does so at the start of solve()).
 
         return std::make_shared<IpAlgorithm<ProblemType>>(
             search_dir_, linesearch_, initializer_, mu_update_, eq_mult_initializer_,
