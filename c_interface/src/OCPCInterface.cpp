@@ -419,8 +419,10 @@ namespace fatrop
         }
         fatrop_int solve()
         {
-            // Re-point the global stream at ours so a destroyed solver's stream never dangles
-            if (use_own_stream_) OutputStreamManager::set_stream(&stream);
+            // Re-point the global stream so a destroyed solver's stream never dangles:
+            // at our own stream, or back at std::cout when no callbacks were given
+            OutputStreamManager::set_stream(use_own_stream_ ? static_cast<std::ostream *>(&stream)
+                                                            : &std::cout);
             flag = algo->optimize();
             if (flag == IpSolverReturnFlag::Success)
             {

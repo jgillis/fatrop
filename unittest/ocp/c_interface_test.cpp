@@ -196,6 +196,10 @@ namespace
         return 0;
     }
 
+    int callback_writes = 0;
+    void counting_write(const char *, int) { callback_writes++; }
+    void counting_flush() {}
+
     FatropOcpCInterface make_interface()
     {
         FatropOcpCInterface ocp = {};
@@ -271,4 +275,35 @@ TEST(CInterfaceTest, TwoStageProblemWithDynamics)
     EXPECT_NEAR(BLASFEO_DVECEL(primal, 1), 1., 1e-6);
     EXPECT_NEAR(BLASFEO_DVECEL(primal, 2), 2., 1e-6);
     fatrop_ocp_c_destroy(solver);
+}
+
+// A solver created without write/flush callbacks used to leave the process-wide
+// output stream pointing at the stream of the previous solver that had callbacks,
+// even after that solver was destroyed: its printing went through a dangling stream.
+TEST(CInterfaceTest, SolverWithoutCallbacksAfterDestroyedSolverWithCallbacks)
+{
+    FatropOcpCInterface ocp = make_interface();
+    ocp.get_nx = single_get_nx;
+    ocp.get_nu = single_get_nu;
+    ocp.get_ng = single_get_ng;
+    ocp.get_ng_ineq = single_get_ng_ineq;
+    ocp.get_horizon_length = single_get_horizon_length;
+    ocp.eval_RSQrqt = single_eval_RSQrqt;
+    ocp.eval_rq = single_eval_rq;
+    ocp.eval_L = single_eval_L;
+
+    FatropOcpCSolver *with_cb = fatrop_ocp_c_create(&ocp, counting_write, counting_flush);
+    ASSERT_NE(with_cb, nullptr);
+    fatrop_ocp_c_set_option_int(with_cb, "print_level", 5); // print level is process-wide
+    EXPECT_EQ(fatrop_ocp_c_solve(with_cb), 0);
+    EXPECT_GT(callback_writes, 0);
+    fatrop_ocp_c_destroy(with_cb);
+
+    const int writes_before = callback_writes;
+    FatropOcpCSolver *without_cb = fatrop_ocp_c_create(&ocp, nullptr, nullptr);
+    ASSERT_NE(without_cb, nullptr);
+    fatrop_ocp_c_set_option_int(without_cb, "print_level", 5);
+    EXPECT_EQ(fatrop_ocp_c_solve(without_cb), 0);
+    EXPECT_EQ(callback_writes, writes_before);
+    fatrop_ocp_c_destroy(without_cb);
 }
